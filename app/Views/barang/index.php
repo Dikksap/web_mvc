@@ -3,29 +3,35 @@
 
 
         <h6>Manajemen Barang</h6>
-  
-                <a href="<?php echo BASEURL?>/barang/tambah">
+                <div class="row">
+  <div class="col">   <a href="<?php echo BASEURL?>/barang/tambah">
                     Tambah Barang Baru
-                </a>
-                <a href="<?php echo BASEURL?>/barang/barangMasuk">
+                </a></div>
+  <div class="col"> <a href="<?php echo BASEURL?>/barang/barangMasuk">
                     Barang Masuk
-                </a>
-                <a href="<?php echo BASEURL?>/barang/keluar">
+                </a></div>
+  <div class="col">  <a href="<?php echo BASEURL?>/barang/keluar">
                     Barang Keluar
-                </a>
-          
-                <a href="<?php echo BASEURL?>/barang/daftarMasuk">
+                </a></div>
+  <div class="col">   <a href="<?php echo BASEURL?>/barang/daftarMasuk">
                     Lihat Masuk
-                </a>
-                <a href="<?php echo BASEURL?>/barang/daftarKeluar">
+                </a></div>
+  <div class="col">   <a href="<?php echo BASEURL?>/barang/daftarKeluar">
                     Lihat Keluar
-                </a>
+                </a></div>
+</div>
+             
+               
+              
+          
+             
+             
    
 
 
         <h6>Daftar Stok Barang</h6>
   
-            <table>
+            <table class="table table-bordered table-hover">
                 <thead>
                     <tr>
                         <th>Kode Barang</th>
