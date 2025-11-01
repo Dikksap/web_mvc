@@ -1,30 +1,43 @@
-<h2><?php echo $judul; ?></h2>
+<div class="container mt-5">
+  <div class="card shadow-sm">
+    <div class="card-header bg-success text-white text-center">
+      <h4 class="mb-0"><?php echo $judul; ?></h4>
+    </div>
+    <div class="card-body">
+      <form action="<?php echo BASEURL?>/barang/barangMasuk" method="POST">
 
-<form action="<?php echo BASEURL?>/barang/barangMasuk" method="POST">
+        <!-- Pilih Barang -->
+        <div class="mb-3">
+          <label class="form-label">Pilih Barang</label>
+          <select name="id_barang" class="form-select" required>
+            <option value="">-- Pilih Barang --</option>
+            <?php foreach($barang as $b): ?>
+              <option value="<?php echo $b['id_barang']; ?>">
+                <?php echo $b['kode_barang'] . ' - ' . $b['nama_barang'] . ' (Stok: ' . $b['stok'] . ')'; ?>
+              </option>
+            <?php endforeach; ?>
+          </select>
+        </div>
 
-  <label>Pilih Barang</label><br>
-  <select name="id_barang" required>
-    <option value="">-- Pilih Barang --</option>
-    <?php foreach($barang as $b): ?>
-      <option value="<?php echo $b['id_barang']; ?>">
-        <?php echo $b['kode_barang'] . ' - ' . $b['nama_barang'] . ' (Stok: ' . $b['stok'] . ')'; ?>
-      </option>
-    <?php endforeach; ?>
-  </select>
-  <br><br>
+        <!-- Jumlah Masuk -->
+        <div class="mb-3">
+          <label class="form-label">Jumlah Masuk</label>
+          <input type="number" name="jumlah" class="form-control" min="1" required>
+        </div>
 
-  <label>Jumlah Masuk</label><br>
-  <input type="number" name="jumlah" min="1" required>
-  <br><br>
+        <!-- Keterangan -->
+        <div class="mb-3">
+          <label class="form-label">Keterangan</label>
+          <textarea name="keterangan" rows="2" class="form-control" placeholder="Opsional"></textarea>
+        </div>
 
-  <label>Harga Beli</label><br>
-  <input type="number" name="harga_beli" step="0.01" required>
-  <br><br>
+        <!-- Tombol Aksi -->
+        <div class="d-flex justify-content-between">
+          <a href="<?php echo BASEURL?>/barang" class="btn btn-secondary">Kembali</a>
+          <button type="submit" class="btn btn-success">Simpan Barang Masuk</button>
+        </div>
 
-  <label>Keterangan</label><br>
-  <textarea name="keterangan" rows="2" placeholder="Opsional"></textarea>
-  <br><br>
-
-  <button type="submit">Simpan Barang Masuk</button>
-
-</form>
+      </form>
+    </div>
+  </div>
+</div>

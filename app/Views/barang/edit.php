@@ -24,12 +24,6 @@
   <label>Warna</label><br>
   <input type="text" name="warna" value="<?php echo htmlspecialchars($barang['warna']); ?>" required><br><br>
 
-  <label>Harga Beli</label><br>
-  <input type="number" name="harga_beli" step="0.01" value="<?php echo htmlspecialchars($barang['harga_beli']); ?>" required><br><br>
-
-  <label>Harga Jual</label><br>
-  <input type="number" name="harga_jual" step="0.01" value="<?php echo htmlspecialchars($barang['harga_jual']); ?>" required><br><br>
-
   <button type="submit">Update Barang</button>
   <a href="<?php echo BASEURL?>/barang">Kembali</a>
 

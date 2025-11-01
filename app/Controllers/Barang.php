@@ -62,11 +62,10 @@ public function hapus($id) {
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $id_barang   = $_POST['id_barang'];
         $jumlah      = $_POST['jumlah'];
-        $harga_beli  = $_POST['harga_beli'];
         $keterangan  = $_POST['keterangan'];
 
         // Simpan ke tabel barang_masuk
-        $this->model('BarangModel')->tambahBarangMasuk($id_barang, $jumlah, $harga_beli, $keterangan);
+        $this->model('BarangModel')->tambahBarangMasuk($id_barang, $jumlah, $keterangan);
 
         // Update stok barang
         $this->model('BarangModel')->updateStok($id_barang, $jumlah);
@@ -82,6 +81,63 @@ public function hapus($id) {
         $data['judul'] = 'Daftar Barang Masuk';
         $data['barang_masuk'] = $this->model('BarangModel')->getBarangMasuk();
         $this->view('barang/daftar-masuk', $data);
+    }
+
+    public function keluar(){
+        $data['judul'] = 'Barang Keluar';
+        $data['barang'] = $this->model('BarangModel')->getBarang();
+
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            $id_barang   = $_POST['id_barang'];
+            $jumlah      = $_POST['jumlah'];
+            $tujuan      = $_POST['tujuan'];
+            $keterangan  = $_POST['keterangan'];
+
+            // Cek stok sebelum pengeluaran
+            $barang = $this->model('BarangModel')->getBarangById($id_barang);
+            if ($barang['stok'] < $jumlah) {
+                // Stok tidak cukup, redirect dengan pesan error
+                header('Location: ' . BASEURL . '/barang/keluar?error=stok_tidak_cukup');
+                exit;
+            }
+
+            // Simpan ke tabel barang_keluar
+            $this->model('BarangModel')->tambahBarangKeluar($id_barang, $jumlah, $tujuan, $keterangan);
+
+            // Update stok barang (kurangi)
+            $this->model('BarangModel')->updateStok($id_barang, -$jumlah);
+
+            header('Location:'. BASEURL .' /barang');
+            exit;
+        }
+
+        $this->view('barang/barang-keluar', $data);
+    }
+
+    public function daftarKeluar() {
+        $data['judul'] = 'Daftar Barang Keluar';
+        $data['barang_keluar'] = $this->model('BarangModel')->getBarangKeluar();
+        $this->view('barang/daftar-keluar', $data);
+    }
+
+    public function hapusMasuk($id) {
+        if ($this->model('BarangModel')->hapusBarangMasuk($id) > 0) {
+            header('Location: ' . BASEURL . '/barang/daftarMasuk');
+            exit;
+        } else {
+            header('Location: ' . BASEURL . '/barang/daftarMasuk');
+            exit;
+        }
+    }
+
+    public function hapusKeluar($id) {
+        if ($this->model('BarangModel')->hapusBarangKeluar($id) > 0) {
+            header('Location: ' . BASEURL . '/barang/daftarKeluar');
+            exit;
+        } else {
+            header('Location: ' . BASEURL . '/barang/daftarKeluar');
+            exit;
+        }
     }
 
 }
